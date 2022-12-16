@@ -10,7 +10,7 @@
             [:name :symbol]
             [:binds [:vector :symbol]] [:exp [:schema [:ref ::exp]]]]
      ::let
-     [:catn [:lettype [:or [:= 'let] [:= 'letrec]]]
+     [:catn [:lettype [:enum 'let 'letrec]]
             [:bindings [:and [:vector :any]
                              [:* [:cat :symbol [:schema [:ref ::exp]]]]]]
             [:exp [:schema [:ref ::exp]]]]
@@ -29,8 +29,7 @@
      [:catn [:fn [:schema [:ref ::exp]]]
             [:args [:* [:schema [:ref ::exp]]]]]
      ::exp
-     [:orn [:defn [:ref ::defn]]
-           [:let [:ref ::let]]
+     [:orn [:let [:ref ::let]]
            [:case [:ref ::case]]
            [:fn [:ref ::fn]]
            [:pack [:catn [:_ [:= 'pack]]
@@ -40,12 +39,11 @@
            [:sym :symbol]
            [:int :int]]
 
-
      ::defns
      [:sequential [:ref ::defn]]}}
    ::defns])
 
 (def ifl-parser (m/parser ifl-schema))
 (defn syntax [input]
-  (println input)
+  ; (println input)
   (ifl-parser (edn/read-string (str "[" input "]"))))
