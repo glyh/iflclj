@@ -1,15 +1,9 @@
 (ns iflclj.core
-    (:require [clj-antlr.core :as antlr]
-              [clojure.java.io :as io]))
+  (:require [iflclj.preclude :as preclude]
+            [iflclj.parse :as parse]))
 
-; I don't give a fuck to the frontend, as a lisper
-(defn syntax [form]
-  ())
-
-(def parse (comp read-string syntax))
-   
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
-
+(defn ifl-compile [src]
+  ;; Directly inject std into source code, feels silly but is good enough right now
+  (parse/syntax (str preclude/std src)))
+(defn -main []
+  (println (ifl-compile (slurp *in*))))

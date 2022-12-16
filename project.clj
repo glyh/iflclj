@@ -4,6 +4,7 @@
   :license {:name "MIT License"
             :url "https://choosealicense.com/licenses/mit/"}
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [org.clojure/core.match "1.0.0"]]
+                 [metosin/malli "0.9.2"]]
   :repl-options {:init-ns iflclj.core}
-  :resource-paths ["resources/"])
+  :resource-paths ["resources/"]
+  :main iflclj.core)
